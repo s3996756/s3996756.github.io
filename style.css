@@ -1,0 +1,30 @@
+body {
+  background-color: rgb(218, 234, 246);
+}
+
+h1 {
+  padding: 1.5rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.subhead {
+  padding: 1.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.question {
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.answer {
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+
+.answer2 {
+  padding: 0.2rem;
+  font-size: 1.2rem;
+}
