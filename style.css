@@ -39,10 +39,10 @@ p {
 }
 h1 {
   padding: 1.5rem;
-  font-size: 3rem;
+  font-size: 5rem;
   text-align: center;
   font-family: "Silkscreen", sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   font-style: normal;
   color: rgb(244, 247, 247);
   /* had to make text white for high contrast  */
