@@ -14,18 +14,18 @@
 body {
   background-image: radial-gradient(
     circle,
-    #d433a3,
-    #cb2ba7,
-    #c124ac,
-    #b61fb0,
-    #aa1bb5,
-    #9c1cb5,
-    #8d1db5,
-    #7d1fb5,
-    #6921b0,
-    #5423aa,
-    #3d23a4,
-    #1e239d
+    #e72f98,
+    #dd23a6,
+    #d01db5,
+    #bd20c5,
+    #a32ad6,
+    #902fd9,
+    #7a34db,
+    #6138dd,
+    #5737d2,
+    #4e35c7,
+    #4533bc,
+    #3c31b1
   );
   /* cool gradient to add interest */
 }
