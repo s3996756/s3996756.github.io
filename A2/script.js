@@ -14,6 +14,8 @@ const timerText = document.querySelector("#timer");
 const ambienceVolumeText = document.querySelector("#ambience-vol");
 
 video.addEventListener("timeupdate", updateProgressBar);
+
+// listen to play and pause events to update icon
 video.addEventListener("pause", togglePlayPauseIcon);
 video.addEventListener("play", togglePlayPauseIcon);
 
@@ -44,19 +46,24 @@ let ambienceVolume = 100;
 
 function ambienceDown() {
   ambienceVolume -= 10;
+  // make sure volume minimum is 0
   if (ambienceVolume < 0) {
     ambienceVolume = 0;
   }
+  // update volume of ambience and show current volume amount
   ambienceVolumeText.innerHTML = "Volume: " + ambienceVolume + "%";
+  // volume of audio is a real number between 0 and 1
   rainAudio.volume = ambienceVolume / 100;
   forestAudio.volume = ambienceVolume / 100;
 }
 
 function ambienceUp() {
   ambienceVolume += 10;
+  // make sure volume maximum is 100
   if (ambienceVolume > 100) {
     ambienceVolume = 100;
   }
+  // update volume of ambience and show current volume amount
   ambienceVolumeText.innerHTML = "Volume: " + ambienceVolume + "%";
   rainAudio.volume = ambienceVolume / 100;
   forestAudio.volume = ambienceVolume / 100;
@@ -64,7 +71,7 @@ function ambienceUp() {
 
 var rainPlaying = false;
 function rain() {
-  // play rain
+  // play rain and update background color if playing or paused
   if (!rainPlaying) {
     rainAudio.play();
     rainBtn.style.background = "#0c6c4d";
@@ -78,7 +85,7 @@ function rain() {
 
 var forestPlaying = false;
 function forest() {
-  // play forest
+  // play forest and update background color if playing or paused
   if (!forestPlaying) {
     forestAudio.play();
     forestBtn.style.background = "#0c6c4d";
@@ -94,11 +101,13 @@ var timerSeconds = 60 * 25;
 var started = false;
 
 function reset() {
-  // resets timer
+  // resets timer and clears the running interval function
   timerSeconds = 60 * 25;
   clearInterval(timer);
+  // need to get rid of decimal
   var minutes = Math.floor(timerSeconds / 60);
   var seconds = timerSeconds % 60;
+  // add leading 0 for single digit numbers
   if (seconds < 10) {
     timerText.innerHTML = minutes + ":0" + seconds;
   } else {
@@ -123,6 +132,7 @@ function start() {
       if (timerSeconds < 0) {
         clearInterval(timer);
       }
+      // need to clear timer if someone reset while playing
       if (started == false) {
         clearInterval(timer);
       }
