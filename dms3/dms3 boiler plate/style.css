@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+:root {
+  --col-01: rgb(18, 16, 16);
+  --col-02: rgb(255, 255, 255);
+  --col-03: rgb(199, 76, 156);
+  --col-04: rgb(200, 148, 210);
+  --boarder: single 1rem var(--col-02);
+}
+
+body {
+  f.titillium-web-regular-italic {
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+}
