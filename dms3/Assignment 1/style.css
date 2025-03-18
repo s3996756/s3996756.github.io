@@ -9,19 +9,20 @@ br {
   margin: 0px;
 }
 
-:root {
-  --col-01: rgb(18, 16, 16);
-  --col-02: rgb(255, 255, 255);
-  --col-03: rgb(199, 76, 156);
-  --col-04: rgb(200, 148, 210);
-  --boarder: single 1rem var(--col-02);
-}
-
 body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: <300>;
+  font-weight: 300;
   font-style: normal;
+}
+
+.heading {
+  background-color: #e7ddfb;
+  color: rgb(66, 17, 101);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 160px;
 }
 
 .container {
@@ -31,6 +32,9 @@ body {
   padding: 20px;
 }
 
+h4 {
+  align-content: center;
+}
 h3 {
   margin-bottom: 10px;
   margin-top: 80px;
@@ -38,4 +42,19 @@ h3 {
 
 p {
   margin-top: 10px;
+}
+
+li {
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+ul {
+  padding: 7px;
+  margin: 7px;
+}
+
+ol {
+  padding: 7px;
+  margin: 7px;
 }
