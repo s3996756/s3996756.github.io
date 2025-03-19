@@ -33,3 +33,23 @@ function pickingColour(e) {
   /*console.log(e.target.value);*/
   setSquareColour(e.target.value);
 }
+
+let setBlueButton = document.getElementsByClassName("blue-button")[0];
+let setPinkButton = document.getElementsByClassName("pink-button")[0];
+let setOrangeButton = document.getElementsByClassName("orange-button")[0];
+
+function setBlue(e) {
+  setSquareColour("blue");
+}
+
+function setPink(e) {
+  setSquareColour("pink");
+}
+
+function setOrange(e) {
+  setSquareColour("orange");
+}
+
+setBlueButton.addEventListener("click", setBlue);
+setPinkButton.addEventListener("click", setPink);
+setOrangeButton.addEventListener("click", setOrange);
