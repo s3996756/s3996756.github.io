@@ -9,6 +9,9 @@ br {
   margin: 0px;
 }
 
+.video1 {
+  width: 50%;
+}
 body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
