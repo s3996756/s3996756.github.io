@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Konva Canvas Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/konva@9.2.0/konva.min.js"></script>
+    <style>
+      #canvas-container {
+        width: 800px;
+        height: 600px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="canvas-container"></div>
+
+    <script>
+      const stage = new Konva.Stage({
+        container: "canvas-container",
+        width: 800,
+        height: 600,
+      });
+
+      const layer = new Konva.Layer();
+      stage.add(layer);
+
+      const testCircle = new Konva.Circle({
+        x: 100,
+        y: 100,
+        radius: 50,
+        fill: "red",
+      });
+
+      layer.add(testCircle);
+      layer.draw();
+    </script>
+  </body>
+</html>
