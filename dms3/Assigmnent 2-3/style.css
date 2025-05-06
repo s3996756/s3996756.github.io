@@ -3,7 +3,7 @@ body {
 }
 
 .content {
-  justify-content: center; /* optional: centers the whole section horizontally */
+  justify-content: center;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -11,10 +11,11 @@ body {
 
 .title {
   text-align: center;
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
-  margin-bottom: 60px;
-  color: #6c1172;
+  margin-bottom: 120px;
+  margin-top: 60px;
+  color: #b41281;
 }
 
 .file-upload {
@@ -22,43 +23,89 @@ body {
   flex-direction: column;
   align-items: flex-start;
   padding: 0 20px;
-  gap: 10px; /* Controls spacing between buttons */
+  gap: 10px;
 }
 
 .file-upload input[type="file"] {
   display: none;
 }
 
-.custom-file-button,
+.stickerupload input[type="file"] {
+  display: none;
+}
+
+.right-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
 .delete-button {
-  display: flex; /* Use flex to center content */
-  justify-content: center; /* Horizontally center */
-  align-items: center; /* Vertically center */
-  text-align: center; /* Backup centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 200px;
   height: 50px;
   padding: 6px 12px;
-  background: #f7dcff;
-  border: 1px solid #6c1172;
+  background: #ffffff;
+  border: 1px solid #2a2a2a;
   border-radius: 2px;
   cursor: pointer;
   font-size: 1rem;
   user-select: none;
-  color: #6c1172;
-  box-sizing: border-box; /* Ensures padding is included in width */
+  color: #2a2a2a;
+  box-sizing: border-box;
+}
+
+.custom-file-button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 200px;
+  height: 50px;
+  padding: 6px 12px;
+  background: #f7dcff;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1rem;
+  user-select: none;
+  color: #2a2a2a;
+  box-sizing: border-box;
+}
+
+.custom-file-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 200px;
+  height: 50px;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #2a2a2a;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1rem;
+  user-select: none;
+  color: #2a2a2a;
+  box-sizing: border-box;
 }
 
 .custom-file-button:hover,
+.custom-file-button1:hover,
 .delete-button:enabled:hover {
-  background: #6c1172;
-  color: #f7dcff;
+  background: #b41281;
+  color: #ffffff;
 }
 
 .delete-button:disabled {
   cursor: not-allowed;
-  border: 1px solid #979497;
-  color: #979497;
-  background: #edeced;
+  border: 1px solid #b3b3b3;
+  color: #b3b3b3;
+  background: #f9f8f8;
 }
 
 .canvas-column {
@@ -67,7 +114,6 @@ body {
   gap: 20px;
 }
 
-/* Canvas Styling */
 .canvas-wrapper {
   display: flex;
   justify-content: flex-start;
@@ -77,7 +123,7 @@ body {
 #canvas-container {
   width: 600px;
   height: 600px;
-  border: 1.5px solid #cccccc;
+  border: 1px solid #2a2a2a;
 }
 
 .sticker-tabs {
@@ -85,40 +131,40 @@ body {
   height: 600px;
   display: flex;
   flex-direction: column;
-  border: 1.5px solid #cccccc;
-  background: rgb(236, 245, 255);
-  border-radius: 4px;
+  border: 1px solid #2a2a2a;
+  background: rgb(255, 255, 255);
+  background-image: url(bgtest1.jpg);
+  background-position: center;
   overflow-y: auto;
 }
 
 .tab-buttons {
   display: flex;
   justify-content: space-around;
-  border-bottom: 1.5px solid #000000;
-  margin-bottom: -1px;
+  border-bottom: px solid #2a2a2a;
+}
+
+.tab-btn:not(.active) {
+  border-bottom: 1px solid #2a2a2a;
 }
 
 .tab-btn {
   flex: 1;
-  padding: 6px 8px;
+  padding: 10px 10px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1rem;
   background: #ffffff;
-  color: #6c1172;
-  border: 1px solid #000000;
+  color: #000000;
+  border: 1px solid #858585;
   border-bottom: none;
-  border-radius: 6px 6px 0 0;
   cursor: pointer;
   position: relative;
   z-index: 1;
 }
 
-.tab-btn:last-child {
-  border-right: none;
-}
-
 .tab-btn.active {
-  background: #aded7d;
+  background: #f7dcff;
+  color: #2a2a2a;
   z-index: 2;
 }
 

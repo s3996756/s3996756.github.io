@@ -42,6 +42,44 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  document
+    .getElementById("customStickerUpload")
+    .addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageObj = new Image();
+        imageObj.src = event.target.result;
+
+        imageObj.onload = function () {
+          const sticker = new Konva.Image({
+            image: imageObj,
+            x: 100,
+            y: 100,
+            width: imageObj.width * 0.2,
+            height: imageObj.height * 0.2,
+            draggable: true,
+            name: "sticker",
+          });
+
+          // Make it behave like other stickers
+          sticker.on("click", (evt) => {
+            evt.cancelBubble = true;
+            tr.nodes([sticker]);
+            tr.moveToTop();
+            layer.draw();
+            updateDeleteButtonState();
+          });
+
+          layer.add(sticker);
+          layer.draw();
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+
   // delete button
   const deleteButton = document.getElementById("deleteSticker");
   if (deleteButton) {
