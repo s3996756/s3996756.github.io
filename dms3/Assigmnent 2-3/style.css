@@ -10,7 +10,7 @@ body {
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 60px;
-  color: rgb(224, 44, 152);
+  color: #6c1172;
 }
 
 .controls {
@@ -18,7 +18,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 600px;
-  margin: 0 auto 0 auot;
+  margin: 0 auto 0 auto;
 }
 
 .left-buttons,
@@ -55,8 +55,32 @@ body {
   color: #f7dcff;
 }
 
+.delete-button {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #f7dcff;
+  border: 1px solid #6c1172;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 1rem;
+  user-select: none;
+  color: #6c1172;
+}
+
+.delete-button:disabled {
+  cursor: not-allowed;
+  border: 1px solid #979497;
+  color: #979497;
+  background: #edeced;
+}
+
+.delete-button:enabled:hover {
+  background: #6c1172;
+  color: #f7dcff;
+}
+
 #canvas-container {
-  border: 3px solid #cccccc;
+  border: 1.5px solid #cccccc;
   margin-top: 20px;
   margin-bottom: 20px;
   width: 600px;

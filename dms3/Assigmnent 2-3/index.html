@@ -14,20 +14,22 @@
     <h1 class="title">Scrapbook Tool</h1>
 
     <div class="controls">
-        <!-- Image upload button -->
-        <input type="file" id="bgUpload" accept="image/*" style="position: absolute; opacity: 0; width: 0; height: 0;" />
-        <label for="bgUpload" class="custom-file-button">Upload an Image</label>
+        <!-- Left-aligned buttons -->
+        <div class="left-buttons">
+          <div class="file-upload">
+            <input type="file" id="bgUpload" accept="image/*" />
+            <label for="bgUpload" class="custom-file-button">Upload an Image</label>
+          <button id="resetCanvas" class="custom-file-button">Reset</button>
+          <button id="deleteSticker" class="delete-button" disabled>Delete Sticker</button>
+        </div>
+        </div>
       
-        <!-- Canvas reset button -->
-        <button id="resetCanvas" class="custom-file-button">Reset</button>
-      
-        <!-- Download button -->
-        <button id="downloadCanvas" class="custom-file-button">Download Design</button>
+        <!-- Right-aligned button -->
+        <div class="right-buttons">
+          <button id="downloadCanvas" class="custom-file-button">Download Design</button>
+        </div>
       </div>
       
-       
-      
-
     <div id="canvas-container"></div>
 
     <div class="sticker-panel">
@@ -41,7 +43,7 @@
         src="sticker2.png"
         class="sticker"
         draggable="true"
-        style="top: 100px; left: 300px"
+        style="top: 180px; left: 150px"
       />
       <img
         src="sticker3.png"
@@ -74,7 +76,7 @@
         src="sticker7.png"
         class="sticker"
         draggable="true"
-        style="top: 170px; left: 150px"
+        style="top: 120px; left: 300px"
       />
       <img
         src="sticker8.png"
