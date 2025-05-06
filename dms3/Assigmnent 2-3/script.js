@@ -157,10 +157,10 @@ window.addEventListener("DOMContentLoaded", () => {
     img.onload = () => {
       const s = new Konva.Image({
         image: img,
-        x: mousePos.x - 50,
-        y: mousePos.y - 50,
-        width: 100,
-        height: 100,
+        x: mousePos.x - (img.width / 2) * 0.2,
+        y: mousePos.y - (img.height / 2) * 0.2,
+        width: img.width * 0.2,
+        height: img.height * 0.2,
         draggable: true,
         name: "sticker",
       });
@@ -182,5 +182,19 @@ window.addEventListener("DOMContentLoaded", () => {
     tr.nodes([]);
     layer.draw();
     updateDeleteButtonState();
+  });
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document
+        .querySelectorAll(".tab-btn")
+        .forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const target = "tab-" + btn.dataset.tab;
+      document.querySelectorAll(".tab-content").forEach((tab) => {
+        tab.classList.remove("active");
+        if (tab.id === target) tab.classList.add("active");
+      });
+    });
   });
 });

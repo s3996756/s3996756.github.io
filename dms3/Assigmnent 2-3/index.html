@@ -13,77 +13,59 @@
   <body>
     <h1 class="title">Scrapbook Tool</h1>
 
-    <div class="controls">
-        <!-- Left-aligned buttons -->
-        <div class="left-buttons">
-          <div class="file-upload">
-            <input type="file" id="bgUpload" accept="image/*" />
-            <label for="bgUpload" class="custom-file-button">Upload an Image</label>
-          <button id="resetCanvas" class="custom-file-button">Reset</button>
-          <button id="deleteSticker" class="delete-button" disabled>Delete Sticker</button>
+    <div class="content">
+      <!-- Left-aligned buttons -->
+      <div class="file-upload">
+        <label for="bgUpload" class="custom-file-button">Upload an Image</label>
+        <input type="file" id="bgUpload" accept="image/*" />
+        <button id="resetCanvas" class="custom-file-button">Reset</button>
+        <button id="downloadCanvas" class="custom-file-button">
+          Download Design
+        </button>
+      </div>
+
+      <div class="canvas-column">
+        <div class="canvas-wrapper">
+          <div id="canvas-container"></div>
+
+          <div class="sticker-tabs">
+            <div class="tab-buttons">
+              <button class="tab-btn active" data-tab="animals">Animals</button>
+              <button class="tab-btn" data-tab="emoji">Emoji</button>
+              <button class="tab-btn" data-tab="Stationary">Stationary</button>
+            </div>
+            <div class="tab-content-container">
+              <div class="tab-content active" id="tab-animals">
+                <img src="sticker1.png" class="sticker" draggable="true" />
+                <img src="sticker2.png" class="sticker" draggable="true" />
+                <img src="sticker6.png" class="sticker" draggable="true" />
+                <img src="sticker3.png" class="sticker" draggable="true" />
+                <img src="sticker10.png" class="sticker" draggable="true" />
+                <img src="sticker13.png" class="sticker" draggable="true" />
+                <img src="sticker14.png" class="sticker" draggable="true" />
+              </div>
+              <div class="tab-content" id="tab-emoji"></div>
+              <div class="tab-content" id="tab-Stationary">
+                <img src="sticker5.png" class="sticker" draggable="true" />
+                <img src="sticker7.png" class="sticker" draggable="true" />
+                <img src="sticker8.png" class="sticker" draggable="true" />
+                <img src="sticker4.png" class="sticker" draggable="true" />
+                <img src="sticker9.png" class="sticker" draggable="true" />
+
+                <img src="sticker11.png" class="sticker" draggable="true" />
+                <img src="sticker12.png" class="sticker" draggable="true" />
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-      
+
         <!-- Right-aligned button -->
         <div class="right-buttons">
-          <button id="downloadCanvas" class="custom-file-button">Download Design</button>
+          <button id="deleteSticker" class="delete-button" disabled>
+            Delete Sticker
+          </button>
         </div>
       </div>
-      
-    <div id="canvas-container"></div>
-
-    <div class="sticker-panel">
-      <img
-        src="sticker1.png" 
-        class="sticker"
-        draggable="true"
-        style="top: 20px; left: 150px"
-      />
-      <img
-        src="sticker2.png"
-        class="sticker"
-        draggable="true"
-        style="top: 180px; left: 150px"
-      />
-      <img
-        src="sticker3.png"
-        class="sticker"
-        draggable="true"
-        style="top: 10px; left: 400px"
-      />
-      <img
-        src="sticker4.png"
-        class="sticker"
-        draggable="true"
-        style="top: 0px; left: 0px"
-      />
-
-      <img
-        src="sticker5.png"
-        class="sticker"
-        draggable="true"
-        style="top: 140px; left: 500px"
-      />
-
-      <img
-        src="sticker6.png"
-        class="sticker"
-        draggable="true"
-        style="top: 150px; left: 0px"
-      />
-
-      <img
-        src="sticker7.png"
-        class="sticker"
-        draggable="true"
-        style="top: 120px; left: 300px"
-      />
-      <img
-        src="sticker8.png"
-        class="sticker"
-        draggable="true"
-        style="top: 0px; left: 600px"
-      />
-     
+    </div>
   </body>
 </html>
