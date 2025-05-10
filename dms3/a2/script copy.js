@@ -22,8 +22,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const tr = new Konva.Transformer({
     rotateEnabled: true,
-    enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right"],
+    ignoreStroke: true,
+    boundBoxFunc: function (oldBox, newBox) {
+      // Enforce minimum width and height of 20
+      if (newBox.width < 20 || newBox.height < 20) {
+        return oldBox;
+      }
+      return newBox;
+    },
+    anchorSize: 10, // Make anchor handles more visible
   });
+
   layer.add(tr);
   layer.draw();
 
@@ -57,7 +66,7 @@ window.addEventListener("DOMContentLoaded", () => {
     tr.nodes([]);
     stage.container().style.cursor = drawMode ? "crosshair" : "default";
 
-    // toggle button style
+    //style
     pencilBtn.style.backgroundColor = drawMode ? "#6c1172" : "#f7dcff";
     pencilBtn.style.color = drawMode ? "#f7dcff" : "#6c1172";
   });
@@ -69,7 +78,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const pos = stage.getPointerPosition();
     currentLine = new Konva.Line({
       stroke: strokeColor,
-      strokeWidth: 2,
+      strokeWidth: 5,
       globalCompositeOperation: "source-over",
       points: [pos.x, pos.y],
       draggable: true,
@@ -87,44 +96,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const newPoints = currentLine.points().concat([pos.x, pos.y]);
     currentLine.points(newPoints);
     layer.batchDraw();
-
-    function finishDrawing() {
-      isDrawing = false;
-
-      if (!currentLine) return;
-
-      // Get bounding box with padding
-      const box = currentLine.getClientRect({ relativeTo: layer });
-      const padding = 10;
-
-      const hitRect = new Konva.Rect({
-        x: box.x - padding,
-        y: box.y - padding,
-        width: box.width + padding * 2,
-        height: box.height + padding * 2,
-        fill: "rgba(0,0,0,0)", // invisible but clickable
-      });
-
-      const group = new Konva.Group({
-        draggable: true,
-        name: "sticker",
-      });
-
-      group.add(hitRect);
-      group.add(currentLine);
-      layer.add(group);
-      layer.draw();
-
-      group.on("click", (e) => {
-        e.cancelBubble = true;
-        tr.nodes([group]);
-        tr.moveToTop();
-        layer.draw();
-        updateDeleteButtonState();
-      });
-
-      currentLine = null;
-    }
   });
 
   stage.on("mouseup touchend", () => {
@@ -134,6 +105,43 @@ window.addEventListener("DOMContentLoaded", () => {
     isDrawing = false;
     makeDrawableSelectable(currentLine);
   });
+
+  function finishDrawing() {
+    isDrawing = false;
+
+    if (!currentLine) return;
+
+    const box = currentLine.getClientRect({ relativeTo: layer });
+    const padding = 10;
+
+    const hitRect = new Konva.Rect({
+      x: box.x - padding,
+      y: box.y - padding,
+      width: box.width + padding * 2,
+      height: box.height + padding * 2,
+      fill: "rgba(0,0,0,0)", // invisible but clickable
+    });
+
+    const group = new Konva.Group({
+      draggable: true,
+      name: "sticker",
+    });
+
+    group.add(hitRect);
+    group.add(currentLine);
+    layer.add(group);
+    layer.draw();
+
+    group.on("click", (e) => {
+      e.cancelBubble = true;
+      tr.nodes([group]);
+      tr.moveToTop();
+      layer.draw();
+      updateDeleteButtonState();
+    });
+
+    currentLine = null;
+  }
 
   function makeDrawableSelectable(line) {
     line.on("click", (evt) => {
@@ -183,6 +191,28 @@ window.addEventListener("DOMContentLoaded", () => {
       reader.readAsDataURL(file);
     });
 
+  // add text button
+  document.getElementById("addTextButton").addEventListener("click", () => {
+    // Default properties
+    const defaultFontSize = 20;
+    const defaultFontColor = "#000000"; // Black
+
+    // Create a text node
+    const text = new Konva.Text({
+      text: "Click to edit",
+      x: 50,
+      y: 50,
+      fontSize: defaultFontSize,
+      fill: defaultFontColor,
+      draggable: true,
+      textAlign: "center",
+    });
+
+    // Add text to the layer
+    layer.add(text);
+    layer.draw();
+  });
+
   // delete button
   const deleteButton = document.getElementById("deleteSticker");
   if (deleteButton) {
@@ -215,7 +245,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Reset button
+  // reset button
   const resetButton = document.getElementById("resetCanvas");
   if (resetButton) {
     resetButton.addEventListener("click", () => {
@@ -295,19 +325,11 @@ window.addEventListener("DOMContentLoaded", () => {
     img.onload = () => {
       const s = new Konva.Image({
         image: img,
-        x: mousePos.x - (img.width / 2) * 0.2,
-        y: mousePos.y - (img.height / 2) * 0.2,
-        width: img.width * 0.2,
-        height: img.height * 0.2,
+        x: mousePos.x - img.width / 2,
+        y: mousePos.y - img.height / 2,
+        width: img.width,
+        height: img.height,
         draggable: true,
-        name: "sticker",
-      });
-      s.on("click", (evt) => {
-        evt.cancelBubble = true;
-        tr.nodes([s]);
-        tr.moveToTop();
-        layer.draw();
-        updateDeleteButtonState();
       });
       layer.add(s);
       layer.draw();
@@ -315,26 +337,12 @@ window.addEventListener("DOMContentLoaded", () => {
     img.src = draggedSrc;
   });
 
-  // deselect sticker on background click
-  bgRect.on("click", () => {
-    tr.nodes([]);
-    layer.draw();
-    updateDeleteButtonState();
-  });
-
-  // tab switching
-  document.querySelectorAll(".tab-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document
-        .querySelectorAll(".tab-btn")
-        .forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const target = "tab-" + btn.dataset.tab;
-      document.querySelectorAll(".tab-content").forEach((tab) => {
-        tab.classList.remove("active");
-        if (tab.id === target) tab.classList.add("active");
-      });
-    });
+  // deselect transformer when clicking outside of any object
+  stage.on("click", (e) => {
+    if (!e.target.hasName("sticker")) {
+      tr.nodes([]);
+      layer.draw();
+      updateDeleteButtonState();
+    }
   });
 });
