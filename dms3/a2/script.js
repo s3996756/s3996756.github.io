@@ -22,12 +22,20 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const tr = new Konva.Transformer({
     rotateEnabled: true,
-    enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right"],
+    ignoreStroke: true,
+    boundBoxFunc: function (oldBox, newBox) {
+      // Enforce minimum width and height of 20
+      if (newBox.width < 20 || newBox.height < 20) {
+        return oldBox;
+      }
+      return newBox;
+    },
+    anchorSize: 10, // Make anchor handles more visible
   });
+
   layer.add(tr);
   layer.draw();
 
-  //  updates the delete buttons state
   function updateDeleteButtonState() {
     const selectedNode = tr.nodes()[0];
     const deleteButton = document.getElementById("deleteSticker");
@@ -42,6 +50,110 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // pencil tool setup
+  let drawMode = false;
+  let isDrawing = false;
+  let currentLine;
+  let strokeColor = document.getElementById("color-picker").value;
+
+  document.getElementById("color-picker").addEventListener("input", (e) => {
+    strokeColor = e.target.value;
+  });
+
+  const pencilBtn = document.getElementById("pencil-button");
+  pencilBtn.addEventListener("click", () => {
+    drawMode = !drawMode;
+    tr.nodes([]);
+    stage.container().style.cursor = drawMode ? "crosshair" : "default";
+
+    //style
+    pencilBtn.style.backgroundColor = drawMode ? "#6c1172" : "#f7dcff";
+    pencilBtn.style.color = drawMode ? "#f7dcff" : "#6c1172";
+  });
+
+  stage.on("mousedown touchstart", (e) => {
+    if (!drawMode) return;
+
+    isDrawing = true;
+    const pos = stage.getPointerPosition();
+    currentLine = new Konva.Line({
+      stroke: strokeColor,
+      strokeWidth: 5,
+      globalCompositeOperation: "source-over",
+      points: [pos.x, pos.y],
+      draggable: true,
+      lineCap: "round",
+      lineJoin: "round",
+      name: "sticker",
+    });
+    layer.add(currentLine);
+  });
+
+  stage.on("mousemove touchmove", () => {
+    if (!isDrawing || !drawMode) return;
+
+    const pos = stage.getPointerPosition();
+    const newPoints = currentLine.points().concat([pos.x, pos.y]);
+    currentLine.points(newPoints);
+    layer.batchDraw();
+  });
+
+  stage.on("mouseup touchend", () => {
+    if (!isDrawing || !drawMode) return;
+    finishDrawing();
+
+    isDrawing = false;
+    makeDrawableSelectable(currentLine);
+  });
+
+  function finishDrawing() {
+    isDrawing = false;
+
+    if (!currentLine) return;
+
+    const box = currentLine.getClientRect({ relativeTo: layer });
+    const padding = 10;
+
+    const hitRect = new Konva.Rect({
+      x: box.x - padding,
+      y: box.y - padding,
+      width: box.width + padding * 2,
+      height: box.height + padding * 2,
+      fill: "rgba(0,0,0,0)", // invisible but clickable
+    });
+
+    const group = new Konva.Group({
+      draggable: true,
+      name: "sticker",
+    });
+
+    group.add(hitRect);
+    group.add(currentLine);
+    layer.add(group);
+    layer.draw();
+
+    group.on("click", (e) => {
+      e.cancelBubble = true;
+      tr.nodes([group]);
+      tr.moveToTop();
+      layer.draw();
+      updateDeleteButtonState();
+    });
+
+    currentLine = null;
+  }
+
+  function makeDrawableSelectable(line) {
+    line.on("click", (evt) => {
+      evt.cancelBubble = true;
+      tr.nodes([line]);
+      tr.moveToTop();
+      layer.draw();
+      updateDeleteButtonState();
+    });
+  }
+
+  // custom sticker upload
   document
     .getElementById("customStickerUpload")
     .addEventListener("change", function (e) {
@@ -64,7 +176,6 @@ window.addEventListener("DOMContentLoaded", () => {
             name: "sticker",
           });
 
-          // Make it behave like other stickers
           sticker.on("click", (evt) => {
             evt.cancelBubble = true;
             tr.nodes([sticker]);
@@ -79,6 +190,28 @@ window.addEventListener("DOMContentLoaded", () => {
       };
       reader.readAsDataURL(file);
     });
+
+  // add text button
+  document.getElementById("addTextButton").addEventListener("click", () => {
+    // Default properties
+    const defaultFontSize = 20;
+    const defaultFontColor = "#000000"; // Black
+
+    // Create a text node
+    const text = new Konva.Text({
+      text: "Click to edit",
+      x: 50,
+      y: 50,
+      fontSize: defaultFontSize,
+      fill: defaultFontColor,
+      draggable: true,
+      textAlign: "center",
+    });
+
+    // Add text to the layer
+    layer.add(text);
+    layer.draw();
+  });
 
   // delete button
   const deleteButton = document.getElementById("deleteSticker");
@@ -112,7 +245,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Reset button
+  // reset button
   const resetButton = document.getElementById("resetCanvas");
   if (resetButton) {
     resetButton.addEventListener("click", () => {
@@ -120,14 +253,11 @@ window.addEventListener("DOMContentLoaded", () => {
       bgRect.fillPatternImage(null);
 
       layer.find(".sticker").forEach((node) => node.destroy());
-
       tr.nodes([]);
       layer.draw();
 
       const bgUpload = document.getElementById("bgUpload");
-      if (bgUpload) {
-        bgUpload.value = "";
-      }
+      if (bgUpload) bgUpload.value = "";
 
       updateDeleteButtonState();
     });
@@ -195,19 +325,11 @@ window.addEventListener("DOMContentLoaded", () => {
     img.onload = () => {
       const s = new Konva.Image({
         image: img,
-        x: mousePos.x - (img.width / 2) * 0.2,
-        y: mousePos.y - (img.height / 2) * 0.2,
-        width: img.width * 0.2,
-        height: img.height * 0.2,
+        x: mousePos.x - img.width / 2,
+        y: mousePos.y - img.height / 2,
+        width: img.width,
+        height: img.height,
         draggable: true,
-        name: "sticker",
-      });
-      s.on("click", (evt) => {
-        evt.cancelBubble = true;
-        tr.nodes([s]);
-        tr.moveToTop();
-        layer.draw();
-        updateDeleteButtonState();
       });
       layer.add(s);
       layer.draw();
@@ -215,24 +337,12 @@ window.addEventListener("DOMContentLoaded", () => {
     img.src = draggedSrc;
   });
 
-  // deselect sticker on background click
-  bgRect.on("click", () => {
-    tr.nodes([]);
-    layer.draw();
-    updateDeleteButtonState();
-  });
-  document.querySelectorAll(".tab-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document
-        .querySelectorAll(".tab-btn")
-        .forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const target = "tab-" + btn.dataset.tab;
-      document.querySelectorAll(".tab-content").forEach((tab) => {
-        tab.classList.remove("active");
-        if (tab.id === target) tab.classList.add("active");
-      });
-    });
+  // deselect transformer when clicking outside of any object
+  stage.on("click", (e) => {
+    if (!e.target.hasName("sticker")) {
+      tr.nodes([]);
+      layer.draw();
+      updateDeleteButtonState();
+    }
   });
 });
