@@ -8,10 +8,32 @@
 
     <script src="https://cdn.jsdelivr.net/npm/konva@9.2.0/konva.min.js"></script>
     <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    <h1 class="title">Scrapbook Tool</h1>
+    <div class="titlebox">
+      <img
+        src="left-button.png"
+        alt="Left Button icon"
+        class="side-button left"
+      />
+
+      <div class="title-content">
+        <h1 class="title">scrapbook tool</h1>
+        <h2>welcome, enjoy your visit</h2>
+      </div>
+      <img
+        src="right-button.png"
+        alt="Right button icon"
+        class="side-button right"
+      />
+    </div>
 
     <div class="content">
       <!-- Left-aligned buttons -->
@@ -89,6 +111,12 @@
 
         <!-- Right-aligned button -->
         <div class="right-buttons">
+          <button id="moveToFront" class="delete-button" disabled>
+            Move to Front
+          </button>
+          <button id="moveToBack" class="delete-button" disabled>
+            Move to Back
+          </button>
           <button id="deleteSticker" class="delete-button" disabled>
             Delete Sticker
           </button>

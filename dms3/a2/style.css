@@ -10,12 +10,69 @@ body {
 }
 
 .title {
+  font-family: "Fredoka", sans-serif;
   text-align: center;
   font-size: 40px;
+  font-weight: 600;
+  color: rgba(89, 52, 22, 1);
+  margin: 0px;
+}
+
+h2 {
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 120px;
-  margin-top: 60px;
-  color: #b41281;
+  text-align: center;
+  color: rgba(89, 52, 22, 1);
+}
+
+.titlebox {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background-color: rgba(243, 235, 219, 1);
+  border-radius: 130px;
+  width: 450px;
+  height: 90px;
+  margin: 40px auto;
+  padding: 20px 40px;
+}
+
+.titlebox::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  border: 4px dashed rgba(224, 151, 205, 1);
+  border-radius: 126px;
+  pointer-events: none;
+}
+
+.title-content {
+  position: absolute;
+  left: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+}
+
+.side-button {
+  width: 200px;
+  height: 200px;
+}
+.left {
+  position: absolute;
+  top: -35px;
+  left: -25px;
+}
+.right {
+  position: absolute;
+  top: -35px;
+  right: -25px;
 }
 
 .file-upload {

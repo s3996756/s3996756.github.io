@@ -31,15 +31,14 @@ window.addEventListener("DOMContentLoaded", () => {
   function updateDeleteButtonState() {
     const selectedNode = tr.nodes()[0];
     const deleteButton = document.getElementById("deleteSticker");
-    if (deleteButton) {
-      if (selectedNode) {
-        deleteButton.disabled = false;
-        deleteButton.style.opacity = 1;
-      } else {
-        deleteButton.disabled = true;
-        deleteButton.style.opacity = 0.6;
+    const moveToFrontButton = document.getElementById("moveToFront");
+    const moveToBackButton = document.getElementById("moveToBack");
+    const buttons = [deleteButton, moveToFrontButton, moveToBackButton];
+    buttons.forEach((btn) => {
+      if (btn) {
+        btn.disabled = !selectedNode;
       }
-    }
+    });
   }
 
   document
@@ -214,6 +213,36 @@ window.addEventListener("DOMContentLoaded", () => {
     };
     img.src = draggedSrc;
   });
+
+  // move to front
+  const moveToFrontButton = document.getElementById("moveToFront");
+  if (moveToFrontButton) {
+    moveToFrontButton.addEventListener("click", () => {
+      const selectedNode = tr.nodes()[0];
+      if (selectedNode) {
+        selectedNode.moveToTop();
+        tr.moveToTop();
+        layer.draw();
+      }
+    });
+  }
+
+  // move to back
+  const moveToBackButton = document.getElementById("moveToBack");
+  if (moveToBackButton) {
+    moveToBackButton.addEventListener("click", () => {
+      const selectedNode = tr.nodes()[0];
+      if (selectedNode) {
+        const bg = layer.findOne(".background");
+        if (bg) {
+          selectedNode.moveToBottom();
+          selectedNode.moveUp();
+          tr.moveToTop();
+          layer.draw();
+        }
+      }
+    });
+  }
 
   // deselect sticker on background click
   bgRect.on("click", () => {
