@@ -35,21 +35,44 @@
       />
     </div>
 
-    <div class="content">
-      <!-- Left-aligned buttons -->
-      <div class="file-upload">
-        <label for="bgUpload" class="custom-file-button1"
-          >Upload a Background</label
-        >
-        <input type="file" id="bgUpload" accept="image/*" />
-        <button id="resetCanvas" class="custom-file-button">
-          Reset Canvas
-        </button>
-        <button id="downloadCanvas" class="custom-file-button">
-          Download Design
-        </button>
-      </div>
+     <!-- topt-aligned buttons -->
+     <div class="file-upload">
+      <label for="bgUpload" class="custom-file-button1"
+        >Upload a Background</label
+      >
+      <input type="file" id="bgUpload" accept="image/*" />
+      <button id="resetCanvas" class="custom-file-button">
+        Reset Canvas
+      </button>
+      <button id="downloadCanvas" class="custom-file-button">
+        Download Design
+      </button>
+    </div>
 
+
+    <div class="content">
+
+       <!-- Right-aligned button -->
+        
+       <div class="right-buttons">
+        <div class="stickerupload">
+          <label for="customStickerUpload" class="custom-file-button"
+            >Place an Image</label
+          >
+          <input type="file" id="customStickerUpload" accept="image/*" />
+        </div>
+        <button id="moveToFront" class="delete-button" disabled>
+          Move to Front
+        </button>
+        <button id="moveToBack" class="delete-button" disabled>
+          Move to Back
+        </button>
+        <button id="deleteSticker" class="delete-button" disabled>
+          Delete Sticker
+        </button>
+
+      </div>
+     
       <div class="scrapbook-layout">
         <div class="canvas-column">
           <div class="canvas-wrapper">
@@ -114,25 +137,6 @@
           </div>
         </div>
 
-        <!-- Right-aligned button -->
-        <div class="right-buttons">
-          <button id="moveToFront" class="delete-button" disabled>
-            Move to Front
-          </button>
-          <button id="moveToBack" class="delete-button" disabled>
-            Move to Back
-          </button>
-          <button id="deleteSticker" class="delete-button" disabled>
-            Delete Sticker
-          </button>
-
-          <div class="stickerupload">
-            <label for="customStickerUpload" class="custom-file-button"
-              >Place an Image</label
-            >
-            <input type="file" id="customStickerUpload" accept="image/*" />
-          </div>
-        </div>
       </div>
     </div>
   </body>
