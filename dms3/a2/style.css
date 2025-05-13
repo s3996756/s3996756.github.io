@@ -8,17 +8,26 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  gap: 25px;
+}
+
+.icon {
+  width: 23px;
+  height: auto;
 }
 
 .main-container {
-  background-color: aquamarine;
+  display: grid;
+
+  place-items: center;
+  background-color: rgb(255, 255, 255);
   padding: 50px 50px;
-  width: 1500px;
+  margin-bottom: 50px;
+  margin-left: 300px;
+  margin-right: 300px;
   height: auto;
-  justify-content: center;
-  align-items: center;
   border-radius: 20px;
-  border: 2px rgba(164, 197, 248, 1);
+  border: 2px solid rgba(164, 197, 248, 1);
 }
 
 .title {
@@ -96,6 +105,12 @@ h2 {
   padding-bottom: 30px;
 }
 
+#fileupload111 {
+  width: 188px;
+  height: 44px;
+  padding: 1px 4px;
+}
+
 .file-upload input[type="file"] {
   display: none;
 }
@@ -108,22 +123,20 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-right: 40px;
+  padding-right: 10px;
 }
 
 .delete-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  width: 200px;
+  width: 70px;
   height: 50px;
   padding: 6px 12px;
   background: rgba(220, 239, 253, 1);
   border: 2px solid rgba(89, 52, 22, 1);
   border-radius: 10px;
   cursor: pointer;
-  font-size: 1rem;
   user-select: none;
   color: #2a2a2a;
   box-sizing: border-box;
@@ -151,7 +164,7 @@ h2 {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 200px;
+  width: 70px;
   height: 50px;
   padding: 6px 12px;
   background: rgba(220, 239, 253, 1);
@@ -171,13 +184,103 @@ h2 {
 
 .delete-button:disabled {
   cursor: not-allowed;
-  border: 1px solid #b3b3b3;
+  border: 2px solid #b3b3b3;
   color: #b3b3b3;
   background: #f9f8f8;
 }
 
+.icon-button {
+  position: relative;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.icon-button::before {
+  content: "";
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#deleteSticker::before {
+  background-image: url("icons/delete.png");
+}
+
+#deleteSticker:disabled::before {
+  background-image: url("icons/delete-disable.png");
+}
+
+#moveToFront::before {
+  background-image: url("icons/movefront.png");
+}
+
+#moveToBack::before {
+  background-image: url("icons/moveback.png");
+}
+
+#moveToFront:disabled::before {
+  background-image: url("icons/movefront-disable.png");
+}
+
+#moveToBack:disabled::before {
+  background-image: url("icons/moveback-disable.png");
+}
+
+#moveToBack:hover:not(:disabled)::before {
+  background-image: url("icons/moveback-hover.png"); /
+}
+
+/* #textbutton::before {
+  background-image: url(icons/text.png);
+  width: 20px;
+} */
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: max-content;
+  background-color: rgba(89, 52, 22, 1);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 14px;
+  position: absolute;
+  z-index: 1;
+  bottom: 70%; 
+  left: 90%;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.custom-file-button::before {
+  content: "";
+  background-image: url("icons/image.png");
+  width: 26px;
+  height: 26px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+}
+
 .scrapbook-layout {
-  width: 700px;
+  width: fit-content;
   height: 585px;
   background-image: url(spine.png);
   background-size: contain;
@@ -192,7 +295,6 @@ h2 {
   flex-grow: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .canvas-wrapper {

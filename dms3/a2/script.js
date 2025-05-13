@@ -2,8 +2,8 @@ window.addEventListener("DOMContentLoaded", () => {
   // stage and layer
   const stage = new Konva.Stage({
     container: "canvas-container",
-    width: 600,
-    height: 600,
+    width: 500,
+    height: 500,
   });
   const layer = new Konva.Layer();
   stage.add(layer);
@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
     y: 0,
     width: stage.width(),
     height: stage.height(),
-    fill: "#fff",
+    fill: "rgba(255, 249, 249, 1)",
     fillPriority: "pattern",
     name: "background",
   });
@@ -26,6 +26,17 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   layer.add(tr);
   layer.draw();
+
+  //undo bttn
+  // const undoStack = [];
+
+  // document.getElementById("undoButton").addEventListener("click", function () {
+  //   const lastItem = undoStack.pop();
+  //   if (lastItem) {
+  //     lastItem.destroy();
+  //     layer.draw();
+  //   }
+  // });
 
   //  updates the delete buttons state
   function updateDeleteButtonState() {
@@ -43,27 +54,46 @@ window.addEventListener("DOMContentLoaded", () => {
 
   document
     .getElementById("customStickerUpload")
+    .addEventListener("click", () => {
+      document.getElementById("customStickerInput").click();
+    });
+
+  document
+    .getElementById("customStickerInput")
     .addEventListener("change", function (e) {
       const file = e.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
+      reader.readAsDataURL(file);
+
       reader.onload = function (event) {
         const imageObj = new Image();
         imageObj.src = event.target.result;
+
+        const MAX_WIDTH = 150;
+        const MIN_WIDTH = 50;
+        const aspectRatio = imageObj.width / imageObj.height;
+
+        // Normalize width
+        let width = imageObj.width;
+        if (width > MAX_WIDTH) width = MAX_WIDTH;
+        if (width < MIN_WIDTH) width = MIN_WIDTH;
+
+        const height = width / aspectRatio;
 
         imageObj.onload = function () {
           const sticker = new Konva.Image({
             image: imageObj,
             x: 100,
             y: 100,
-            width: imageObj.width * 0.2,
-            height: imageObj.height * 0.2,
+            width: width,
+            height: height,
             draggable: true,
             name: "sticker",
           });
 
-          // Make it behave like other stickers
+          // behave like other stickers
           sticker.on("click", (evt) => {
             evt.cancelBubble = true;
             tr.nodes([sticker]);
@@ -74,10 +104,42 @@ window.addEventListener("DOMContentLoaded", () => {
 
           layer.add(sticker);
           layer.draw();
+          // undoStack.push(sticker); //undo
         };
       };
-      reader.readAsDataURL(file);
     });
+
+  // text button
+  // const textButton = document.getElementById("textButton");
+  // if (textButton) {
+  //   textButton.addEventListener("click", () => {
+  //     const simpleText = new Konva.Text({
+  //       x: stage.width() / 2,
+  //       y: 15,
+  //       text: "Simple Text",
+  //       fontSize: 30,
+  //       fontFamily: "Calibri",
+  //       fill: "green",
+  //       name: "sticker",
+  //       draggable: true
+  //     });
+
+  //     // behave like other stickers
+  //     simpleText.on("click", (evt) => {
+  //       evt.cancelBubble = true;
+  //       tr.nodes([simpleText]);
+  //       tr.moveToTop();
+  //       layer.draw();
+  //       updateDeleteButtonState();
+  //     });
+
+  //     layer.add(simpleText);
+  //     layer.draw();
+  //   });
+  // }
+
+  // i tried to add a text button here but since konva doesnt
+  //  directly support typing on the canvas i gave up
 
   // delete button
   const deleteButton = document.getElementById("deleteSticker");
@@ -115,7 +177,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const resetButton = document.getElementById("resetCanvas");
   if (resetButton) {
     resetButton.addEventListener("click", () => {
-      bgRect.fill("#fff");
+      bgRect.fill("rgba(255, 249, 249, 1)");
       bgRect.fillPatternImage(null);
 
       layer.find(".sticker").forEach((node) => node.destroy());
@@ -192,12 +254,22 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const img = new Image();
     img.onload = () => {
+      const MAX_WIDTH = 100;
+      const MIN_WIDTH = 50;
+      const aspectRatio = img.width / img.height;
+
+      // Normalize width
+      let width = img.width;
+      if (width > MAX_WIDTH) width = MAX_WIDTH;
+      if (width < MIN_WIDTH) width = MIN_WIDTH;
+
+      const height = width / aspectRatio;
       const s = new Konva.Image({
         image: img,
-        x: mousePos.x - (img.width / 2) * 0.2,
-        y: mousePos.y - (img.height / 2) * 0.2,
-        width: img.width * 0.2,
-        height: img.height * 0.2,
+        x: mousePos.x - width / 2,
+        y: mousePos.y - height / 2,
+        width: width,
+        height: height,
         draggable: true,
         name: "sticker",
       });
