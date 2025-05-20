@@ -66,7 +66,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
-
       reader.onload = function (event) {
         const imageObj = new Image();
         imageObj.src = event.target.result;
