@@ -17,6 +17,33 @@
   </head>
 
   <body>
+    <dialog id="welcomeDialog">
+      <h3 class="welcomeh3">welcome!</h3>
+      <p>
+        You've found our little corner of the internet, a space for
+        self-expression, exploration, and creativity. Use this tool to create
+        and download your own digital scrapbook piece in any way that feels
+        right to you.
+      </p>
+      <div class="dialog-button">
+        <button id="closeDialog" class="custom-file-button1">
+          start creating
+        </button>
+      </div>
+    </dialog>
+
+    <div id="confirmModal" class="modal">
+      <div class="modal-content">
+        <h3>reset the canvas?</h3>
+        <p>this will remove all stickers and the background.</p>
+
+        <div class="modal-buttons">
+          <button id="confirmNo" class="no-btn">cancel</button>
+          <button id="confirmYes" class="yes-btn">yes, reset it</button>
+        </div>
+      </div>
+    </div>
+
     <div class="titlebox">
       <img
         src="left-button.png"
@@ -36,110 +63,116 @@
     </div>
 
     <div class="main-container">
-
-     <!-- topt-aligned buttons -->
-     <div class="file-upload">
-      <label for="bgUpload" class="custom-file-button1" id="fileupload111"
-        >Upload a Background</label
-      >
-      <input type="file" id="bgUpload" accept="image/*" />
-      <button id="resetCanvas" class="custom-file-button1">
-        Reset Canvas
-      </button>
-      <button id="downloadCanvas" class="custom-file-button1">
-        Download Design
-      </button>
-    </div>
-
-    <div class="content">
-
-       <!-- Right-aligned button -->
-        
-       <div class="right-buttons">
-        <!-- <button id="textButton" class="delete-button icon-button"></button> -->
-
-        <div class="stickerupload tooltip-container ">
-          <button id="customStickerUpload" class="custom-file-button icon-button" ></button>
-          <input type="file" id="customStickerInput" accept="image/*" />
-          <span class="tooltip-text">image</span>
-        </div>
-        <button id="deleteSticker" class="tooltip-container delete-button icon-button" disabled> 
-          <span class="tooltip-text">delete</span></button>
-        <button id="moveToFront" class="tooltip-container delete-button icon-button" disabled>
-          <span class="tooltip-text">bring to front</span></button>
-        <button id="moveToBack" class="tooltip-container delete-button icon-button" disabled> 
-          <span class="tooltip-text">send to back</span></button>
-        
-
-
+      <!-- topt-aligned buttons -->
+      <div class="file-upload">
+        <label for="bgUpload" class="custom-file-button1" id="fileupload111"
+          >Upload a Background</label
+        >
+        <input type="file" id="bgUpload" accept="image/*" />
+        <button id="resetCanvas" class="custom-file-button1">
+          Reset Canvas
+        </button>
+        <button id="downloadCanvas" class="custom-file-button1">
+          Download Design
+        </button>
       </div>
-     
-      <div class="scrapbook-layout">
-        <div class="canvas-column">
-          <div class="canvas-wrapper">
-            <div id="canvas-container">
-            </div>
+
+      <div class="content">
+        <!-- Right-aligned button -->
+        <div class="right-buttons">
+          <!-- <button id="textButton" class="delete-button icon-button"></button> -->
+          <div class="stickerupload tooltip-container">
+            <button
+              id="customStickerUpload"
+              class="custom-file-button icon-button"
+            ></button>
+            <input type="file" id="customStickerInput" accept="image/*" />
+            <span class="tooltip-text">image</span>
           </div>
+          <button
+            id="deleteSticker"
+            class="tooltip-container delete-button icon-button"
+            disabled
+          >
+            <span class="tooltip-text">delete</span>
+          </button>
+          <button
+            id="moveToFront"
+            class="tooltip-container delete-button icon-button"
+            disabled
+          >
+            <span class="tooltip-text">bring to front</span>
+          </button>
+          <button
+            id="moveToBack"
+            class="tooltip-container delete-button icon-button"
+            disabled
+          >
+            <span class="tooltip-text">send to back</span>
+          </button>
         </div>
-      </div>
 
-          <div class="sticker-tabs">
-            <div class="tab-buttons">
-              <button class="tab-btn active" data-tab="decor">Decor</button>
-              <button class="tab-btn" data-tab="Letters">Letters</button>
-              <button class="tab-btn" data-tab="Stationary">Stationary</button>
-            </div>
-            <div class="tab-content-container">
-              <div class="tab-content active" id="tab-decor">
-                <img src="sticker1.png" class="sticker" draggable="true" />
-                <img src="sticker2.png" class="sticker" draggable="true" />
-                <img src="sticker6.png" class="sticker" draggable="true" />
-                <img src="sticker3.png" class="sticker" draggable="true" />
-                <img src="sticker10.png" class="sticker" draggable="true" />
-                <img src="sticker13.png" class="sticker" draggable="true" />
-                <img src="sticker14.png" class="sticker" draggable="true" />
-                <img src="sticker15.png" class="sticker" draggable="true" />
-                <img src="sticker16.png" class="sticker" draggable="true" />
-                <img src="sticker17.png" class="sticker" draggable="true" />
-                <img src="sticker18.png" class="sticker" draggable="true" />
-                <img src="sticker19.png" class="sticker" draggable="true" />
-                <img src="sticker20.png" class="sticker" draggable="true" />
-                <img src="sticker21.png" class="sticker" draggable="true" />
-                <img src="sticker23.png" class="sticker" draggable="true" />
-                <img src="sticker24.png" class="sticker" draggable="true" />
-                <img src="sticker37.png" class="sticker" draggable="true" />
-              </div>
-              <div class="tab-content" id="tab-Letters">
-                <img src="sticker25.png" class="sticker" draggable="true" />
-                <img src="sticker26.png" class="sticker" draggable="true" />
-                <img src="sticker27.png" class="sticker" draggable="true" />
-                <img src="sticker30.png" class="sticker" draggable="true" />
-                <img src="sticker31.png" class="sticker" draggable="true" />
-                <img src="sticker28.png" class="sticker" draggable="true" />
-                <img src="sticker29.png" class="sticker" draggable="true" />
-                <img src="sticker32.png" class="sticker" draggable="true" />
-                <img src="sticker33.png" class="sticker" draggable="true" />
-                <img src="sticker34.png" class="sticker" draggable="true" />
-              </div>
-
-              <div class="tab-content" id="tab-Stationary">
-                <img src="sticker5.png" class="sticker" draggable="true" />
-                <img src="sticker7.png" class="sticker" draggable="true" />
-                <img src="sticker8.png" class="sticker" draggable="true" />
-                <img src="sticker4.png" class="sticker" draggable="true" />
-                <img src="sticker9.png" class="sticker" draggable="true" />
-                <img src="sticker22.png" class="sticker" draggable="true" />
-                <img src="sticker11.png" class="sticker" draggable="true" />
-                <img src="sticker12.png" class="sticker" draggable="true" />
-                <img src="sticker35.png" class="sticker" draggable="true" />
-                <img src="sticker36.png" class="sticker" draggable="true" />
-              
+        <div class="scrapbook-layout">
+          <div class="canvas-column">
+            <div class="canvas-wrapper">
+              <div id="canvas-container"></div>
             </div>
           </div>
         </div>
 
+        <div class="sticker-tabs">
+          <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="decor">decor</button>
+            <button class="tab-btn" data-tab="Letters">letters</button>
+            <button class="tab-btn" data-tab="Stationary">stationary</button>
+          </div>
+          <div class="tab-content-container">
+            <div class="tab-content active" id="tab-decor">
+              <img src="sticker1.png" class="sticker" draggable="true" />
+              <img src="sticker2.png" class="sticker" draggable="true" />
+              <img src="sticker6.png" class="sticker" draggable="true" />
+              <img src="sticker3.png" class="sticker" draggable="true" />
+              <img src="sticker10.png" class="sticker" draggable="true" />
+              <img src="sticker13.png" class="sticker" draggable="true" />
+              <img src="sticker14.png" class="sticker" draggable="true" />
+              <img src="sticker15.png" class="sticker" draggable="true" />
+              <img src="sticker16.png" class="sticker" draggable="true" />
+              <img src="sticker17.png" class="sticker" draggable="true" />
+              <img src="sticker18.png" class="sticker" draggable="true" />
+              <img src="sticker19.png" class="sticker" draggable="true" />
+              <img src="sticker20.png" class="sticker" draggable="true" />
+              <img src="sticker21.png" class="sticker" draggable="true" />
+              <img src="sticker23.png" class="sticker" draggable="true" />
+              <img src="sticker24.png" class="sticker" draggable="true" />
+              <img src="sticker37.png" class="sticker" draggable="true" />
+            </div>
+            <div class="tab-content" id="tab-Letters">
+              <img src="sticker25.png" class="sticker" draggable="true" />
+              <img src="sticker26.png" class="sticker" draggable="true" />
+              <img src="sticker27.png" class="sticker" draggable="true" />
+              <img src="sticker30.png" class="sticker" draggable="true" />
+              <img src="sticker31.png" class="sticker" draggable="true" />
+              <img src="sticker28.png" class="sticker" draggable="true" />
+              <img src="sticker29.png" class="sticker" draggable="true" />
+              <img src="sticker32.png" class="sticker" draggable="true" />
+              <img src="sticker33.png" class="sticker" draggable="true" />
+              <img src="sticker34.png" class="sticker" draggable="true" />
+            </div>
+            <div class="tab-content" id="tab-Stationary">
+              <img src="sticker5.png" class="sticker" draggable="true" />
+              <img src="sticker7.png" class="sticker" draggable="true" />
+              <img src="sticker8.png" class="sticker" draggable="true" />
+              <img src="sticker4.png" class="sticker" draggable="true" />
+              <img src="sticker9.png" class="sticker" draggable="true" />
+              <img src="sticker22.png" class="sticker" draggable="true" />
+              <img src="sticker11.png" class="sticker" draggable="true" />
+              <img src="sticker12.png" class="sticker" draggable="true" />
+              <img src="sticker35.png" class="sticker" draggable="true" />
+              <img src="sticker36.png" class="sticker" draggable="true" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
   </body>
 </html>

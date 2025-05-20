@@ -70,18 +70,18 @@ window.addEventListener("DOMContentLoaded", () => {
         const imageObj = new Image();
         imageObj.src = event.target.result;
 
-        const MAX_WIDTH = 150;
-        const MIN_WIDTH = 50;
-        const aspectRatio = imageObj.width / imageObj.height;
-
-        // Normalize width
-        let width = imageObj.width;
-        if (width > MAX_WIDTH) width = MAX_WIDTH;
-        if (width < MIN_WIDTH) width = MIN_WIDTH;
-
-        const height = width / aspectRatio;
-
         imageObj.onload = function () {
+          const MAX_WIDTH = 150;
+          const MIN_WIDTH = 50;
+          const aspectRatio = imageObj.width / imageObj.height;
+
+          // Normalize width
+          let width = imageObj.width;
+          if (width > MAX_WIDTH) width = MAX_WIDTH;
+          if (width < MIN_WIDTH) width = MIN_WIDTH;
+
+          const height = width / aspectRatio;
+
           const sticker = new Konva.Image({
             image: imageObj,
             x: 100,
@@ -172,10 +172,20 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Reset button
+  //reset
+
   const resetButton = document.getElementById("resetCanvas");
-  if (resetButton) {
+  const confirmModal = document.getElementById("confirmModal");
+  const confirmYes = document.getElementById("confirmYes");
+  const confirmNo = document.getElementById("confirmNo");
+
+  if (resetButton && confirmModal && confirmYes && confirmNo) {
     resetButton.addEventListener("click", () => {
+      confirmModal.style.display = "flex"; // show modal
+    });
+
+    confirmYes.addEventListener("click", () => {
+      // perform reset
       bgRect.fill("rgba(255, 249, 249, 1)");
       bgRect.fillPatternImage(null);
 
@@ -190,6 +200,12 @@ window.addEventListener("DOMContentLoaded", () => {
       }
 
       updateDeleteButtonState();
+
+      confirmModal.style.display = "none"; // hide modal
+    });
+
+    confirmNo.addEventListener("click", () => {
+      confirmModal.style.display = "none"; // just hide modal
     });
   }
 
@@ -335,4 +351,17 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+});
+
+window.addEventListener("load", () => {
+  const welcomeModal = document.getElementById("welcomeDialog");
+  const closeDialog = document.getElementById("closeDialog");
+
+  if (welcomeModal && closeDialog) {
+    welcomeModal.showModal(); // opens the dialog as a modal
+
+    closeDialog.addEventListener("click", () => {
+      welcomeModal.close();
+    });
+  }
 });
