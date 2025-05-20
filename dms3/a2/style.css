@@ -481,6 +481,10 @@ dialog button {
   cursor: pointer;
 }
 
+.pdialog{
+  font-size: large;
+}
+
 .welcomeh3{
   font-size: x-large;
 }
